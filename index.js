@@ -29,17 +29,25 @@ async function addItem(text) {
         console.error(error.body)
     }
 }
+async function getWeeklyTasks() {
+    flkjdfsaljksdflkjsdfkj
+}
 async function getDailyTasks() {
     try {
         const tasksId = '6e94f201fc4a4ad7ab41cdc41a1ab814';
-        const dateNow = Date.now();
+        var dateNow = new Date().toISOString().substr(0, 19).replace('T', ' ');
+        dateNow = dateNow.split(" ")[0];
+
+        //date = ("0" + this.getDate()).slice(-2);
+        //month = ("0" + (dateNow.getMonth() + 1)).slice(-2);
+        //dateString = `${dateNow.getFullYear()}-${month}-${date}`;
         const response = await notion.databases.query({
             database_id: tasksId,
             filter: {
 
                 property: "Due Date",
                 date: {
-                    equals: "2021-07-30",
+                    equals: dateNow,
                 }
             },
             sorts: [
@@ -50,7 +58,7 @@ async function getDailyTasks() {
             ],
         });
         //console.log(response);
-        console.log(response.results[0].properties["Context"])
+        console.log(response.results)
     } catch (error) {
         console.error(error.body)
     }
